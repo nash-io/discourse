@@ -185,8 +185,8 @@ defmodule Discourse.SSO do
   @spec sig(binary, Keyword.t()) :: String.t()
   defp sig(payload, opts),
     do:
-      :sha256
-      |> :crypto.hmac(secret(opts), payload)
+      :hmac
+      |> :crypto.mac(:sha256, secret(opts), payload)
       |> Base.encode16(case: :lower)
 
   ### Config ###
